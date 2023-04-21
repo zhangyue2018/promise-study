@@ -49,22 +49,36 @@ function Promise(executor) {
 
     
 }
-
+// then方法返回一个promise对象
 Promise.prototype.then = function(onResolve, onReject) {
-    // 判断promiseState 调用回调函数 
-    if(this.promiseState === 'fulfilled') {
-        onResolve(this.promiseResult);
-    }
-    if(this.promiseState === 'rejected') {
-        onReject(this.promiseResult);
-    }
+    return new Promise((resolve, reject) => {
+        // 判断promiseState 调用回调函数 
+        if(this.promiseState === 'fulfilled') {
+            try {
+                let res = onResolve(this.promiseResult);
+                if(res instanceof Promise) {
+                    res.then(value => {
+                        resolve(value);
+                    }, err => {
+                        reject(err);
+                    });
+                } else {
+                    resolve(res);
+                }
+            } catch (error) {
+                reject(error);
+            }
+        }
+        if(this.promiseState === 'rejected') {
+            onReject(this.promiseResult);
+        }
 
-    // 保存回调函数
-    if(this.promiseState === 'pendding') {
-        this.callcack.push({
-            onResolve,
-            onReject
-        });
-    }
-
+        // 保存回调函数
+        if(this.promiseState === 'pendding') {
+            this.callcack.push({
+                onResolve,
+                onReject
+            });
+        }
+    });
 };

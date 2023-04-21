@@ -10,25 +10,35 @@
 <body>
     <script>
         let p = new Promise(function(resolve, reject) {
-            setTimeout(() => {
-                resolve('OK1');
-                // reject('failed');
-            }, 2000);
-            // resolve('OK1');
+            // setTimeout(() => {
+            //     resolve('OK1');
+            //     // reject('failed');
+            // }, 2000);
+            resolve('OK1');
             // reject('failed');
             // throw '出错啦'
         });
-        console.log(p);
-        p.then(value => {
+        
+        let result = p.then(value => {
             console.log(value);
+            // return value;
+            return new Promise(function(resolve, reject) {
+                resolve('hahahahah');
+                // reject('oh no ~~');
+                // throw 'hehe，出错了';
+            });
         }, reason => {
             console.warn(reason);
         });
-        p.then(value => {
-            console.log('---11111----', value);
-        }, reason => {
-            console.warn('---222------', reason);
+
+        result.then(data => {
+            console.log('-----result---data----', data);
+        }, err => {
+            console.log('result---err---', err);
         });
+
+        console.log(result);
+        
     </script>
 </body>
 </html>
