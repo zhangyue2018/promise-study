@@ -38,5 +38,11 @@ function Promise(executor) {
 }
 
 Promise.prototype.then = function(onResolve, onReject) {
-    
+    // 判断promiseState 调用回调函数 
+    if(this.promiseState === 'fulfilled') {
+        onResolve(this.promiseResult);
+    }
+    if(this.promiseState === 'rejected') {
+        onReject(this.promiseResult);
+    }
 };
