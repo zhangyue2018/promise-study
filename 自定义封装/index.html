@@ -10,7 +10,11 @@
 <body>
     <script>
         let p = new Promise(function(resolve, reject) {
-            resolve('OK1');
+            setTimeout(() => {
+                // resolve('OK1');
+                reject('failed');
+            }, 2000);
+            // resolve('OK1');
             // reject('failed');
             // throw '出错啦'
         });

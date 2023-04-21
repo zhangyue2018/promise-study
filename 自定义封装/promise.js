@@ -3,8 +3,11 @@ function Promise(executor) {
     // 添加属性
     this.promiseState = 'pendding';
     this.promiseResult = null;
+    // 保存then方法的回调函数
+    this.callcack = {};
 
     let self = this;
+
 
     // resolve函数
     function resolve(data) {
@@ -14,6 +17,11 @@ function Promise(executor) {
         self.promiseState = 'fulfilled';
         // 2.修改对象结果值
         self.promiseResult = data;
+
+        // 调用成功的回调函数
+        if(self.callcack.onResolve) {
+            self.callcack.onResolve(data);
+        }
     }
 
     // reject函数
@@ -24,6 +32,11 @@ function Promise(executor) {
         self.promiseState = 'rejected';
         // 2.修改对象结果值
         self.promiseResult = data;
+
+        // 调用失败的回调函数
+        if(self.callcack.onReject) {
+            self.callcack.onReject(data);
+        }
     }
 
     try {
@@ -45,4 +58,13 @@ Promise.prototype.then = function(onResolve, onReject) {
     if(this.promiseState === 'rejected') {
         onReject(this.promiseResult);
     }
+
+    // 保存回调函数
+    if(this.promiseState === 'pendding') {
+        this.callcack = {
+            onResolve,
+            onReject
+        }
+    }
+
 };
