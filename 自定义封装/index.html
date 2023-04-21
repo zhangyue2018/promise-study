@@ -10,8 +10,8 @@
 <body>
     <script>
         let p = new Promise(function(resolve, reject) {
-            // resolve('OK');
-            // reject('failed');
+            resolve('OK');
+            reject('failed');
             throw '出错啦'
         });
         console.log(p);
