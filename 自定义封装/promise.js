@@ -22,8 +22,15 @@ function Promise(executor) {
         self.promiseResult = data;
     }
 
-    // 同步调用【执行器函数】
-    executor(resolve, reject);
+    try {
+        // 同步调用【执行器函数】
+        executor(resolve, reject);
+    } catch (error) {
+        // 修改promise状态为失败
+        reject(error);
+    }
+
+    
 }
 
 Promise.prototype.then = function(onResolve, onReject) {
