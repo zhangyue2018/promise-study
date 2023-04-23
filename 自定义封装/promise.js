@@ -51,11 +51,12 @@ function Promise(executor) {
 }
 // then方法返回一个promise对象
 Promise.prototype.then = function(onResolve, onReject) {
+    let self = this;
     return new Promise((resolve, reject) => {
-        // 判断promiseState 调用回调函数 
-        if(this.promiseState === 'fulfilled') {
+
+        function callback(funParam) {
             try {
-                let res = onResolve(this.promiseResult);
+                let res = funParam(self.promiseResult);
                 if(res instanceof Promise) {
                     res.then(value => {
                         resolve(value);
@@ -69,58 +70,22 @@ Promise.prototype.then = function(onResolve, onReject) {
                 reject(error);
             }
         }
+        // 判断promiseState 调用回调函数 
+        if(this.promiseState === 'fulfilled') {
+            callback(onResolve);
+        }
         if(this.promiseState === 'rejected') {
-            try {
-                let res = onReject(this.promiseResult);
-                if(res instanceof Promise) {
-                    res.then(value => {
-                        resolve(value);
-                    }, err => {
-                        reject(err);
-                    });
-                } else {
-                    resolve(res);
-                }
-            } catch(e) {
-                reject(e);
-            }
-            
+            callback(onReject);
         }
 
         // 保存回调函数
         if(this.promiseState === 'pendding') {
             this.callcack.push({
                 onResolve: function(value) {
-                    try {
-                        let res = onResolve(value);
-                        if(res instanceof Promise) {
-                            res.then(data => {
-                                resolve(data);
-                            }, error => {
-                                reject(error);
-                            });
-                        } else {
-                            resolve(res);
-                        }
-                    } catch (error) {
-                        reject(error);
-                    }
+                    callback(onResolve);
                 },
                 onReject: function(err) {
-                    try {
-                        let res = onReject(err);
-                        if(res instanceof Promise) {
-                            res.then(data => {
-                                resolve(data);
-                            }, error => {
-                                reject(error);
-                            });
-                        } else {
-                            resolve(res);
-                        }
-                    } catch (error) {
-                        reject(error);
-                    }
+                    callback(onReject);
                 }
             });
         }

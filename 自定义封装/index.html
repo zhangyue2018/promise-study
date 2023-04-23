@@ -11,8 +11,8 @@
     <script>
         let p = new Promise(function(resolve, reject) {
             setTimeout(() => {
-                // resolve('OK1');
-                reject('failed');
+                resolve('OK1');
+                // reject('failed');
             }, 2000);
             // resolve('OK1');
             // reject('failed');
@@ -23,8 +23,8 @@
             console.log(value);
             // return value;
             return new Promise(function(resolve, reject) {
-                // resolve('hahahahah');
-                reject('oh no ~~');
+                resolve('hahahahah');
+                // reject('oh no ~~');
                 // throw 'hehe，出错了';
             });
         }, reason => {
