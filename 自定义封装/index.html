@@ -23,8 +23,8 @@
             console.log(value);
             // return value;
             return new Promise(function(resolve, reject) {
-                resolve('hahahahah');
-                // reject('oh no ~~');
+                // resolve('hahahahah');
+                reject('oh no ~~');
                 // throw 'hehe，出错了';
             });
         }, reason => {
@@ -33,8 +33,10 @@
 
         result.then(data => {
             console.log('-----result---data----', data);
+            return data;
         }, err => {
             console.log('result---err---', err);
+            return err;
         });
 
         console.log(result);

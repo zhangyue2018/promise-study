@@ -70,7 +70,21 @@ Promise.prototype.then = function(onResolve, onReject) {
             }
         }
         if(this.promiseState === 'rejected') {
-            onReject(this.promiseResult);
+            try {
+                let res = onReject(this.promiseResult);
+                if(res instanceof Promise) {
+                    res.then(value => {
+                        resolve(value);
+                    }, err => {
+                        reject(err);
+                    });
+                } else {
+                    resolve(res);
+                }
+            } catch(e) {
+                reject(e);
+            }
+            
         }
 
         // 保存回调函数
