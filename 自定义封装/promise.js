@@ -90,8 +90,38 @@ Promise.prototype.then = function(onResolve, onReject) {
         // 保存回调函数
         if(this.promiseState === 'pendding') {
             this.callcack.push({
-                onResolve,
-                onReject
+                onResolve: function(value) {
+                    try {
+                        let res = onResolve(value);
+                        if(res instanceof Promise) {
+                            res.then(data => {
+                                resolve(data);
+                            }, error => {
+                                reject(error);
+                            });
+                        } else {
+                            resolve(res);
+                        }
+                    } catch (error) {
+                        reject(error);
+                    }
+                },
+                onReject: function(err) {
+                    try {
+                        let res = onReject(err);
+                        if(res instanceof Promise) {
+                            res.then(data => {
+                                resolve(data);
+                            }, error => {
+                                reject(error);
+                            });
+                        } else {
+                            resolve(res);
+                        }
+                    } catch (error) {
+                        reject(error);
+                    }
+                }
             });
         }
     });

@@ -10,11 +10,11 @@
 <body>
     <script>
         let p = new Promise(function(resolve, reject) {
-            // setTimeout(() => {
-            //     resolve('OK1');
-            //     // reject('failed');
-            // }, 2000);
-            resolve('OK1');
+            setTimeout(() => {
+                // resolve('OK1');
+                reject('failed');
+            }, 2000);
+            // resolve('OK1');
             // reject('failed');
             // throw '出错啦'
         });
@@ -29,6 +29,11 @@
             });
         }, reason => {
             console.warn(reason);
+            // return reason;
+            // throw '啊哦';
+            return new Promise(function(resolve, reject) {
+                reject('哦哦，出错了');
+            });
         });
 
         result.then(data => {
