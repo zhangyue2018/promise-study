@@ -18,33 +18,22 @@
             // reject('failed');
             // throw '出错啦'
         });
-        
-        let result = p.then(value => {
-            console.log(value);
-            // return value;
-            return new Promise(function(resolve, reject) {
-                resolve('hahahahah');
-                // reject('oh no ~~');
-                // throw 'hehe，出错了';
-            });
-        }, reason => {
-            console.warn(reason);
-            // return reason;
-            // throw '啊哦';
-            return new Promise(function(resolve, reject) {
-                reject('哦哦，出错了');
-            });
+
+        p.then()
+        .then(function(value) {
+            console.log('then-resolve--', value);
+        })
+        .then(function(value1) {
+            console.log('then--resolve1---', value1);
+        })
+        .catch(err => {
+            console.log('---catch---', err);
         });
 
-        result.then(data => {
-            console.log('-----result---data----', data);
-            return data;
-        }, err => {
-            console.log('result---err---', err);
-            return err;
+        p.catch(err => {
+            console.log('---catch---err---', err);
         });
 
-        console.log(result);
         
     </script>
 </body>

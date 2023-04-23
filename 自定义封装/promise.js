@@ -52,6 +52,16 @@ function Promise(executor) {
 // then方法返回一个promise对象
 Promise.prototype.then = function(onResolve, onReject) {
     let self = this;
+    // 值穿透
+    if(typeof onResolve !== 'function') {
+        onResolve = value => value;
+    }
+    // 异常穿透
+    if(typeof onReject !== 'function') {
+        onReject = function(err) {
+            throw err;
+        }
+    }
     return new Promise((resolve, reject) => {
 
         function callback(funParam) {
@@ -91,3 +101,8 @@ Promise.prototype.then = function(onResolve, onReject) {
         }
     });
 };
+
+// catch方法
+Promise.prototype.catch = function(onReject) {
+    return this.then(undefined, onReject);
+}
