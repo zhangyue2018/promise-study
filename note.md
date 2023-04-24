@@ -43,3 +43,14 @@ p.then(value => {
 }).catch(reason => {
     console.warn(reason);
 });
+
+## async 函数
+返回值是一个promise对象
+async function main() {
+    <!-- return 321; -->
+    <!-- return new Promise(function(resolve, reject) {
+        // resolve('ok');
+        reject('error---');
+    }); -->
+    throw 'oh no';
+}
