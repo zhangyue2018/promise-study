@@ -18,9 +18,11 @@ function Promise(executor) {
         // 2.修改对象结果值
         self.promiseResult = data;
 
-        // 调用成功的回调函数
-        self.callcack.forEach(item => {
-            if(item.onResolve) item.onResolve(data);
+        setTimeout(() => {
+            // 调用成功的回调函数
+            self.callcack.forEach(item => {
+                if(item.onResolve) item.onResolve(data);
+            });
         });
     }
 
@@ -33,9 +35,11 @@ function Promise(executor) {
         // 2.修改对象结果值
         self.promiseResult = data;
 
-        // 调用失败的回调函数
-        self.callcack.forEach(item => {
-            if(item.onReject) item.onReject(data);
+        setTimeout(() => {
+            // 调用失败的回调函数
+            self.callcack.forEach(item => {
+                if(item.onReject) item.onReject(data);
+            });
         });
     }
 
@@ -82,10 +86,14 @@ Promise.prototype.then = function(onResolve, onReject) {
         }
         // 判断promiseState 调用回调函数 
         if(this.promiseState === 'fulfilled') {
-            callback(onResolve);
+            setTimeout(() => {
+                callback(onResolve);
+            });
         }
         if(this.promiseState === 'rejected') {
-            callback(onReject);
+            setTimeout(() => {
+                callback(onReject);
+            });
         }
 
         // 保存回调函数

@@ -9,59 +9,17 @@
 </head>
 <body>
     <script>
-        // let p = new Promise(function(resolve, reject) {
-        //     setTimeout(() => {
-        //         resolve('OK1');
-        //         // reject('failed');
-        //     }, 2000);
-        //     // resolve('OK1');
-        //     // reject('failed');
-        //     // throw '出错啦'
-        // });
-
-        // p.then()
-        // .then(function(value) {
-        //     console.log('then-resolve--', value);
-        // })
-        // .then(function(value1) {
-        //     console.log('then--resolve1---', value1);
-        // })
-        // .catch(err => {
-        //     console.log('---catch---', err);
-        // });
-
-        // p.catch(err => {
-        //     console.log('---catch---err---', err);
-        // });
-
-        // let p = Promise.resolve('OK');
-        let p = Promise.resolve(new Promise(function(resolve, reject) {
-            // resolve('hahaha');
-            // reject('err');
-            setTimeout(() => {
-                reject('lllllll');
-            }, 1000);
-        }));
-
-        let p2 = new Promise(function(resolve, reject) {
-            // resolve('hahaha');
-            // reject('err');
-            setTimeout(() => {
-                // resolve('hahaha');
-                reject('hhhhhhhhhhhhh');
-            }, 2000);
+        let p = new Promise(function(resolve, reject) {
+            console.log(000);
+            resolve('OK');
         });
-
-        let p3 = Promise.resolve(Promise.reject(1122));
-
-        let result = Promise.race([p, p2, p3]);
-        result.then(arr => {
-            console.log('111111---arr---', arr);
+        p.then(value => {
+            console.log(111, value);
         }, err => {
-            console.log('22222----err---', err);
+            console.log(err);
         });
-        console.log(result);
 
+        console.log(333);
         
     </script>
 </body>
