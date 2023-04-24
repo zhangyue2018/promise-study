@@ -9,30 +9,42 @@
 </head>
 <body>
     <script>
-        let p = new Promise(function(resolve, reject) {
-            setTimeout(() => {
-                resolve('OK1');
-                // reject('failed');
-            }, 2000);
-            // resolve('OK1');
-            // reject('failed');
-            // throw '出错啦'
-        });
+        // let p = new Promise(function(resolve, reject) {
+        //     setTimeout(() => {
+        //         resolve('OK1');
+        //         // reject('failed');
+        //     }, 2000);
+        //     // resolve('OK1');
+        //     // reject('failed');
+        //     // throw '出错啦'
+        // });
 
-        p.then()
-        .then(function(value) {
-            console.log('then-resolve--', value);
-        })
-        .then(function(value1) {
-            console.log('then--resolve1---', value1);
-        })
-        .catch(err => {
-            console.log('---catch---', err);
-        });
+        // p.then()
+        // .then(function(value) {
+        //     console.log('then-resolve--', value);
+        // })
+        // .then(function(value1) {
+        //     console.log('then--resolve1---', value1);
+        // })
+        // .catch(err => {
+        //     console.log('---catch---', err);
+        // });
 
-        p.catch(err => {
-            console.log('---catch---err---', err);
-        });
+        // p.catch(err => {
+        //     console.log('---catch---err---', err);
+        // });
+
+        let p = Promise.resolve('OK');
+        let p2 = Promise.resolve(new Promise(function(resolve, reject) {
+            // resolve('hahaha');
+            reject('err');
+        }));
+
+        let p3 = Promise.resolve(Promise.resolve(1122));
+
+        console.log(p);
+        console.log(p2);
+        console.log(p3);
 
         
     </script>
