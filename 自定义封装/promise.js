@@ -160,3 +160,13 @@ Promise.all = function(promiseArr) {
         // }
     });
 }
+
+// race方法
+Promise.race = function(promiseArr) {
+
+    return new Promise(function(resolve, reject) {
+        promiseArr.forEach(p => {
+            p.then(res => resolve(res), err => reject(err));
+        });
+    });
+}
