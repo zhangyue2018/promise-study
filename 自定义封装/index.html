@@ -5,21 +5,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Promise封装</title>
-    <script src="./promise.js"></script>
+    <script src="./promise1.js"></script>
 </head>
 <body>
     <script>
-        let p = new Promise(function(resolve, reject) {
-            console.log(000);
-            resolve('OK');
-        });
-        p.then(value => {
-            console.log(111, value);
-        }, err => {
-            console.log(err);
-        });
+        // let p = new Promise(function(resolve, reject) {
+        //     console.log(111);
+        //     resolve('OK');
+        //     // reject('OK');
+        //     // setTimeout(()=> {
+        //     //     resolve('kkkkk');
+        //     // }, 3000);
+        // });
+        // p.then(value => {
+        //     console.log(222, value);
+        // }, err => {
+        //     console.log(555, err);
+        // });
 
-        console.log(333);
+        // let p = Promise.resolve('dddd');
+        // let p2 = Promise.resolve(Promise.resolve('kkkk'));
+        // let p3 = Promise.resolve(new Promise(function(resolve, reject) {
+        //     setTimeout(() => {
+        //         resolve(7777);
+        //     }, 2000);
+        // }));
+
+        // let p = Promise.reject('dddd');
+        // let p2 = Promise.resolve(Promise.reject('kkkk'));
+        // let p3 = Promise.reject(new Promise(function(resolve, reject) {
+        //     setTimeout(() => {
+        //         resolve(7777);
+        //     }, 2000);
+        // }));
+
+        // p3.then(res => {
+        //     console.log('resolve---', res);
+        // }, err => {
+        //     console.log('err----', err);
+        // });
+
+        let p = Promise.resolve('dddd');
+        let p2 = new Promise(function(resolve, reject) {
+            resolve('kkkkkk');
+        });
+        let p3 = Promise.resolve(new Promise(function(resolve, reject) {
+            setTimeout(() => {
+                resolve(7777);
+            }, 2000);
+        }));
+
+        let result = Promise.all([p, p2, p3]);
+        let result1 = Promise.race([p, p2, p3]);
+
+        console.log(result);
+        console.log(result1);
         
     </script>
 </body>
