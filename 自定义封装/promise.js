@@ -129,3 +129,34 @@ Promise.reject = function(value) {
         reject(value);
     });
 }
+
+// all方法
+Promise.all = function(promiseArr) {
+    // 返回结果时promise对象
+    return new Promise(function(resolve, reject) {
+        let resArr = [], count = 0;
+        promiseArr.forEach((promise, index) => {
+            promise.then(res => {
+                count++;
+                resArr[index] = res;
+                if(count === promiseArr.length) {
+                    resolve(resArr);
+                }
+            }, err => {
+                reject(err);
+            });
+        });
+
+        // for(let i=0; i<promiseArr.length; i++) {
+        //     promiseArr[i].then(v => {
+        //         count++;
+        //         resArr[i] = v;
+        //         if(count === promiseArr.length) {
+        //             resolve(resArr);
+        //         }
+        //     }, r => {
+        //         reject(r);
+        //     });
+        // }
+    });
+}

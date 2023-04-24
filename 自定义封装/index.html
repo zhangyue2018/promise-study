@@ -34,17 +34,33 @@
         //     console.log('---catch---err---', err);
         // });
 
-        let p = Promise.reject('OK');
-        let p2 = Promise.reject(new Promise(function(resolve, reject) {
+        let p = Promise.resolve('OK');
+        // let p2 = Promise.resolve(new Promise(function(resolve, reject) {
+        //     // resolve('hahaha');
+        //     // reject('err');
+        //     setTimeout(() => {
+        //         reject('lllllll');
+        //     }, 2000);
+        // }));
+
+        let p2 = new Promise(function(resolve, reject) {
             // resolve('hahaha');
-            reject('err');
-        }));
+            // reject('err');
+            setTimeout(() => {
+                // resolve('hahaha');
+                reject('hhhhhhhhhhhhh');
+            }, 2000);
+        });
 
-        let p3 = Promise.reject(Promise.resolve(1122));
+        let p3 = Promise.resolve(Promise.resolve(1122));
 
-        console.log(p);
-        console.log(p2);
-        console.log(p3);
+        let result = Promise.all([p, p2, p3]);
+        result.then(arr => {
+            console.log('111111---arr---', arr);
+        }, err => {
+            console.log('22222----err---', err);
+        });
+        console.log(result);
 
         
     </script>
