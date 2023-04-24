@@ -122,3 +122,10 @@ Promise.resolve = function(value) {
         }
     });
 }
+
+// reject方法--返回结果永远是一个失败的promise
+Promise.reject = function(value) {
+    return new Promise(function(resolve, reject) {
+        reject(value);
+    });
+}
