@@ -54,3 +54,12 @@ async function main() {
     }); -->
     throw 'oh no';
 }
+
+## await
+1. await 右侧的表达式一般为promise对象，但也可以是其他的值
+2. 如果表达式是promise对象，await返回的是promise成功的值
+3. 如果表达式是其他值，直接将此值作为await的返回值
+
+注意：
+1. await必须写在async函数中，但是async函数中可以没有await
+2. 如果await的promise失败了，就会抛出异常没需要通过try catch捕获处理，或者用.catch处理
